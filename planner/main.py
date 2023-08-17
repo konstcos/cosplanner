@@ -1,11 +1,22 @@
 import subprocess
 from datetime import datetime
 from crontab import CronSlices
+import os
 
 
 def main():
     # Путь к файлу с расписанием
-    # schedule_file = "../schedule.conf"
+    schedule_file = os.path.expanduser("~/.planner/schedule.conf")
+
+    # Проверка наличия директории
+    if not os.path.exists(os.path.dirname(schedule_file)):
+        os.makedirs(os.path.dirname(schedule_file))
+        print('Создат пустой файл конфигурации')
+
+    # Проверка наличия файла
+    if not os.path.exists(schedule_file):
+        with open(schedule_file, 'w') as file:
+            file.write("# Ваш конфигурационный файл\n")
 
     # Чтение файла с расписанием
     # with open(schedule_file, 'r') as file:
